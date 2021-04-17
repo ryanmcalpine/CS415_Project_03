@@ -1,5 +1,5 @@
-//
-// Created by Nicholas Keng on 4/17/21.
+// Description: Prototypes for the 2-3 tree class.
+// Created by Nicholas Keng and Ryan McAlpine.
 //
 
 #ifndef CS415_PROJECT_03_TWOTHREETREE_H

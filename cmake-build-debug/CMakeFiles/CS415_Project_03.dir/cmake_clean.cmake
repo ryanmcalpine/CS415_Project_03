@@ -1,9 +1,11 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/CS415_Project_03.dir/bst/TwoThreeTree.cpp.o"
-  "CMakeFiles/CS415_Project_03.dir/bst/bst.cpp.o"
-  "CMakeFiles/CS415_Project_03.dir/bst/main.cpp.o"
-  "CS415_Project_03"
+  "CMakeFiles/CS415_Project_03.dir/bst/TwoThreeTree.cpp.obj"
+  "CMakeFiles/CS415_Project_03.dir/bst/bst.cpp.obj"
+  "CMakeFiles/CS415_Project_03.dir/bst/main.cpp.obj"
+  "CS415_Project_03.exe"
+  "CS415_Project_03.exe.manifest"
   "CS415_Project_03.pdb"
+  "libCS415_Project_03.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.
