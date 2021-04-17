@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/CS415_Project_03.dir/bst/bst.cpp.o CMakeFiles/CS415_Project_03.dir/bst/main.cpp.o CMakeFiles/CS415_Project_03.dir/bst/TwoThreeTree.cpp.o  -o CS415_Project_03 
