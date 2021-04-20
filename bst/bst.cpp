@@ -51,7 +51,7 @@ void BST::buildTree(ifstream & input){
 		//Read a whole line of text from the file
 		getline(input, tempLine);
 		for (int i = 0; i < tempLine.length(); i++) {
-		    //Insert valid chars into tempWord until a delimiter( newline or space) is found
+		    //Insert valid chars into tempWord until a delimiter (newline or space) is found
 		    while (tempLine[i] != ' '&& tempLine[i] != '\n' && i < tempLine.length() ) {
 			tempWord.insert(tempWord.end(), tempLine[i]);
 			i++;
@@ -107,12 +107,14 @@ void BST::insertHelper(const string &x, int line, node *& t, int &distWord){
 	    distWord++;
     }
     else {
+        // if word is greater than key
 	if (x.compare(t->key) > 0)
    	    insertHelper(x, line, t->right, distWord);
         //If word is already in tree, then add the line the inserted word
         //came from the the nodes lines vector
 	else if (x.compare(t->key) == 0)
 	    t->lines.push_back(line);
+	    // if word is less than key
 	else
 	    insertHelper(x, line, t->left, distWord);
 			

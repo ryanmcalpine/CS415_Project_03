@@ -4,10 +4,13 @@
 
 #ifndef CS415_PROJECT_03_TWOTHREETREE_H
 #define CS415_PROJECT_03_TWOTHREETREE_H
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
+
+using namespace std;
 
 class TwoThreeTree {
     public:
@@ -18,14 +21,18 @@ class TwoThreeTree {
         void buildTree(ifstream & input);
     private:
         struct node{
-            node(const string &x, node *l, node *r)
-                    :key(x), left(l), right(r){
-                lines.resize(0);
+            node(const string &x, node *l, node *m, node *r)
+                    :key1(x), key2(""), left(l), middle(m), right(r){
+                lines1.resize(0);
+                lines2.resize(0);
             }
-            string key;
+            string key1;
+            string key2;
             node * left;
+            node * middle;
             node * right;
-            vector<int> lines;
+            vector<int> lines1;
+            vector<int> lines2;
         };
         node * root;
         void insertHelper(const string &X, int line, node *& t, int &distWords);

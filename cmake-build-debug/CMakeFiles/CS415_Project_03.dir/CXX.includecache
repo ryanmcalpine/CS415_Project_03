@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Ryan/Documents/GitHub/CS415_Project_03/bst/TwoThreeTree.cpp
+TwoThreeTree.h
+C:/Users/Ryan/Documents/GitHub/CS415_Project_03/bst/TwoThreeTree.h
+time.h
+C:/Users/Ryan/Documents/GitHub/CS415_Project_03/bst/time.h
+iomanip
+-
+sstream
+-
+algorithm
+-
+
+C:/Users/Ryan/Documents/GitHub/CS415_Project_03/bst/TwoThreeTree.h
+iostream
+-
+fstream
+-
+string
+-
+vector
+-
+
