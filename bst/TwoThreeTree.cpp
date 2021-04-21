@@ -99,6 +99,7 @@ void TwoThreeTree::insertHelper(const string &x, int line, node *& t, int &distW
             if( x.compare(t->key1) > 0 )
             {
                 t->key2 = x;
+                t->lines2.push_back(line);
             }
             // If word matches key1
             else if( x.compare(t->key1) == 0 )
@@ -107,24 +108,35 @@ void TwoThreeTree::insertHelper(const string &x, int line, node *& t, int &distW
             else
                 insertHelper(x, line, t->left, distWord);
         }
-
         // If node has both keys:
-
-        // If word is greater than both keys
-        if (x.compare(t->key1) > 0 && x.compare(t->key2) > 0)
-            insertHelper(x, line, t->right, distWord);
-        // If word is greater than key1 but smaller than key2
-        if (x.compare(t->key1) > 0 && x.compare(t->key2) < 0)
-            insertHelper(x, line, t->middle, distWord);
-        //If word is already in tree, then add the line the inserted word
-        //came from the the nodes lines vector
-        else if (x.compare(t->key1) == 0)
-            t->lines1.push_back(line);
-        else if (x.compare(t->key2) == 0)
-            t->lines2.push_back(line);
-        // If word is less than both keys
         else
-            insertHelper(x, line, t->left, distWord);
+        {
+            // If word is greater than both keys
+            if(x.compare(t->key1) > 0 && x.compare(t->key2) > 0)
+            {
+                insertHelper(x, line, t->right, distWord);
+            }
+            // If word is greater than key1 but smaller than key2
+            if(x.compare(t->key1) > 0 && x.compare(t->key2) < 0)
+            {
+                insertHelper(x, line, t->middle, distWord);
+            }
+            //If word is already in tree, then add the line the inserted word
+            //came from to the node's lines vector
+            else if(x.compare(t->key1) == 0)
+            {
+                t->lines1.push_back(line);
+            }
+            else if(x.compare(t->key2) == 0)
+            {
+                t->lines2.push_back(line);
+            }
+            // If word is less than both keys
+            else
+            {
+                insertHelper(x, line, t->left, distWord);
+            }
+        }
     }
 }
 
@@ -169,10 +181,10 @@ bool TwoThreeTree::containsHelper(const string & x, node * t, node * &result) co
         return true;
     }
     // If word is greater than key2
-    else if( t->key2.compare(x) > 0 )
+    else if( x.compare(t->key2) > 0 )
         return containsHelper(x, t->right, result);
     // If word is in between key values
-    else if( t->key1.compare(x) > 0 && t->key2.compare(x) < 0 )
+    else if( x.compare(t->key1) > 0 && x.compare(t->key2) < 0 )
         return containsHelper(x, t->middle, result);
     // If word is less than key1
     else
@@ -195,6 +207,7 @@ void TwoThreeTree::printTreeHelper(node *t, ostream & out) const
     else
     {
         printTreeHelper(t->left, out);
+
         out << setw(30) << std::left;
         out << t->key1 << " " << t->lines1[0];
         for (int i = 1; i < t->lines1.size(); i++)
@@ -202,6 +215,7 @@ void TwoThreeTree::printTreeHelper(node *t, ostream & out) const
         out << endl;
 
         printTreeHelper(t->middle, out);
+
         out << setw(30) << std::left;
         if( t-> key2 != "" )
         {
