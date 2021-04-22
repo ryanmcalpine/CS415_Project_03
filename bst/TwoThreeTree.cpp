@@ -92,34 +92,92 @@ void TwoThreeTree::insertHelper(const string &x, int line, node *& t, int &distW
     // If we are looking at an existing node
     else
     {
+        // If node has both keys filled, go left/mid/right
+        if( t->key2 != "" )
+        {
+            // If word is less than both keys, go left
+            if(x.compare(t->key1) < 0 && x.compare(t->key2) < 0)
+            {
+                insertHelper(x, line, t->right, distWord);
+            }
+            // If word is in between keys, go mid
+            if(x.compare(t->key1) > 0 && x.compare(t->key2) < 0)
+            {
+                insertHelper(x, line, t->middle, distWord);
+            }
+            // If word is greater than both keys, go right
+            if(x.compare(t->key1) > 0 && x.compare(t->key2) > 0)
+            {
+                insertHelper(x, line, t->left, distWord);
+            }
+
+            // If word is already in node, push line number to node's lines vector
+            if(x.compare(t->key1) == 0)
+            {
+                t->lines1.push_back(line);
+            }
+            if(x.compare(t->key2) == 0)
+            {
+                t->lines2.push_back(line);
+            }
+        }
+        // Otherwise, if node has only one key
+        else
+        {
+            // If word is less than key1
+            if(x.compare(t->key1) < 0)
+            {
+                insertHelper(x, line, t->left, distWord);
+            }
+            // If word is equal to key1
+            if(x.compare(t->key1) < 0)
+            {
+                t->lines1.push_back(line);
+            }
+            // If word is greater than key1
+            if(x.compare(t->key1) > 0)
+            {
+                insertHelper(x, line, t->middle, distWord);
+            }
+        }
+
+        /*
         // If node has only one key:
         if( t->key2 == "" )
         {
-            // If word is greater than key
+            // If word is greater than key1, set key2
             if( x.compare(t->key1) > 0 )
             {
                 t->key2 = x;
                 t->lines2.push_back(line);
             }
-            // If word matches key1
+            // If word matches key1, push line number to vector lines1
             else if( x.compare(t->key1) == 0 )
                 t->lines1.push_back(line);
-            // If word is less than key
+            // If word is less than key, go left
             else
                 insertHelper(x, line, t->left, distWord);
         }
+
         // If node has both keys:
         else
+
         {
-            // If word is greater than both keys
+            // If word is greater than both keys, go right
             if(x.compare(t->key1) > 0 && x.compare(t->key2) > 0)
             {
                 insertHelper(x, line, t->right, distWord);
             }
-            // If word is greater than key1 but smaller than key2
+            // If word is greater than key1 but smaller than key2, go mid
             if(x.compare(t->key1) > 0 && x.compare(t->key2) < 0)
             {
                 insertHelper(x, line, t->middle, distWord);
+
+                *
+                 * key1 = x
+                 * t->left --> inserthelper(key1)
+                 * t->right --> inserthelper(key2)
+                 *
             }
             //If word is already in tree, then add the line the inserted word
             //came from to the node's lines vector
@@ -136,7 +194,8 @@ void TwoThreeTree::insertHelper(const string &x, int line, node *& t, int &distW
             {
                 insertHelper(x, line, t->left, distWord);
             }
-        }
+
+        }*/
     }
 }
 

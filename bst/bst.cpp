@@ -117,7 +117,6 @@ void BST::insertHelper(const string &x, int line, node *& t, int &distWord){
 	    // if word is less than key
 	else
 	    insertHelper(x, line, t->left, distWord);
-			
     }
 }
 
