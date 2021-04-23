@@ -316,12 +316,11 @@ void TwoThreeTree::promote(const string &x, int line, node *& t, int &distWord)
     // if node already has key1 and key2 filled
     else if (t->key2 != "")
     {
+        node* parent = findParent(t);
+        int a,b,c;
         //if the word is the middle value
         if( x.compare(t->key1) > 0 && x.compare(t->key2) < 0)
         {
-            //find parent node & promote the word up to the parent node
-            findParent();
-
             //check to see if you are on the left child or the middle child
             //left child
             if()
