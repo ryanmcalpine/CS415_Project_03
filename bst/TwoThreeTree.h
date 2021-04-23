@@ -36,6 +36,8 @@ class TwoThreeTree {
         };
         node * root;
         void insertHelper(const string &X, int line, node *& t, int &distWords);
+        void promote(const string &x, int line, node *& t, int &distWord);
+        node findParent(node *& t)
         bool containsHelper(const string & x, node * t, node* &result) const;
         void printTreeHelper(node *t, ostream & out) const;
         int findHeight(node *t);
