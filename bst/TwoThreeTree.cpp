@@ -316,8 +316,67 @@ void TwoThreeTree::promote(const string &x, int line, node *& t, int &distWord)
     // if node already has key1 and key2 filled
     else if (t->key2 != "")
     {
+        // Save the parent of this node
         node* parent = findParent(t);
-        int a,b,c;
+
+        // Order node values a < b < c
+        string a, b, c = "";
+        // If x is least value, set it as 'a'
+        if( x.compare(t->key1) < 0 && x.compare(t->key2) < 0 )
+        {
+            a = x;
+            // That only leaves key1 and key2 for b and c
+            if( t->key1.compare(t->key2) < 0 )
+            {
+                b = t->key1;
+                c = t->key2;
+            }
+            else
+            {
+                b = t->key2;
+                c = t->key1;
+            }
+        }
+        // If key1 is least value, set it as 'a'
+        if( t->key1.compare(x) < 0 && t->key1.compare(t->key2) < 0 )
+        {
+            a = t->key1;
+            // That only leaves x and key2 for b and c
+            if( x.compare(t->key2) < 0 )
+            {
+                b = x;
+                c = t->key2;
+            }
+            else
+            {
+                b = t->key2;
+                c = x;
+            }
+        }
+        // If key2 is least value, set it as 'a'
+        if( t->key2.compare(x) < 0 && t->key2.compare(t->key1) < 0 )
+        {
+            a = t->key2;
+            // That only leaves x and key1 for b and c
+            if( x.compare(t->key1) < 0 )
+            {
+                b = x;
+                c = t->key1;
+            }
+            else
+            {
+                b = t->key1;
+                c = x;
+            }
+        }
+
+        // Promotion process depends on which child (l/m/r) our node is
+        // If we are at the left child:
+        if( t == parent->left )
+        {
+
+        }
+
         //if the word is the middle value
         if( x.compare(t->key1) > 0 && x.compare(t->key2) < 0)
         {
