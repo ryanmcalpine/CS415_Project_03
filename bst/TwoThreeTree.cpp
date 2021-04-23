@@ -315,12 +315,38 @@ void TwoThreeTree::promote(const string &x, int line, node *& t, int &distWord)
     }
 }
 
-node TwoThreeTree::findParent(node *& t)
+TwoThreeTree::node* TwoThreeTree::findParent(node *& t)
 {
-    node *& tmp = root;
-    if( tmp->left != t && tmp->middle != t && tmp->right != t )
+    return findParentHelper( root, t );
+}
+
+TwoThreeTree::node* TwoThreeTree::findParentHelper(node *& r, node *& t)
+{
+    if( t != NULL )
     {
-        findParentHelper(root, t);
+        if( r->left != t && r->middle != t && r->right != t )
+        {
+            node* left = findParentHelper( r->left, t );
+            node* mid = findParentHelper( r->middle, t );
+            node* right = findParentHelper( r->right, t );
+
+            if( left != NULL )
+            {
+                return left;
+            }
+            if( mid != NULL )
+            {
+                return mid;
+            }
+            if( right != NULL )
+            {
+                return right;
+            }
+        }
+        else
+        {
+            return r;
+        }
     }
 }
 
