@@ -313,6 +313,64 @@ void TwoThreeTree::promote(const string &x, int line, node *& t, int &distWord)
             t->key2 = x;
         }
     }
+    // if node already has key1 and key2 filled
+    else if (t->key2 != "")
+    {
+        //if the word is the middle value
+        if( x.compare(t->key1) > 0 && x.compare(t->key2) < 0)
+        {
+            //find parent node & promote the word up to the parent node
+            findParent();
+
+            //check to see if you are on the left child or the middle child
+            //left child
+            if()
+            {
+                //split key1(left) and key2(middle)
+                insertHelper(t->key1, line, t->left, distWord);
+                insertHelper(t->key2, line, t->middle, distWord);
+            }
+
+            //right child
+            else if()
+            {
+                insertHelper(t->key1, line, t->middle, distWord);
+                insertHelper(t->key2, line, t->right, distWord);
+            }
+
+            //middle child
+            else if()
+            {
+
+            }
+        }
+        //if key1 is the middle value
+        else if ( x.compare(t->key1) < 0 && t->key1.compare(t->key2) < 0)
+        {
+            //find parent node & push key1 up to the parent node
+            findParent();
+
+            //word is now key1
+            t->key1 = x;
+
+            //split key1(left) and key2(middle)
+            insertHelper(t->key1, line, t->left, distWord);
+            insertHelper(t->key2, line, t->middle, distWord);
+        }
+        //if key2 is the middle value
+        else if ( x.compare(t->key1) > 0 && x.compare(t->key2) > 0)
+        {
+            //find parent node & push key2 up to the parent node
+            findParent();
+
+            //word is now key2
+            t->key2 = x;
+
+            //split key1(left) and key2(middle)
+            insertHelper(t->key1, line, t->left, distWord);
+            insertHelper(t->key2, line, t->middle, distWord);
+        }
+    }
 }
 
 node TwoThreeTree::findParent(node *& t)
