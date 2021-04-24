@@ -35,7 +35,7 @@ class TwoThreeTree {
             vector<int> lines2;
         };
         node * root;
-        void insertHelper(const string &X, int line, node *& t, int &distWords);
+        node* insertHelper(const string &X, int line, node *& rt, int &distWords);
         void promote(const string &x, int line, node *& t, int &distWord);
         node* findParent(node *& t);
         node* findParentHelper(node *& r, node *& t);

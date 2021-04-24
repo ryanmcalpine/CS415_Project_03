@@ -77,11 +77,79 @@ void TwoThreeTree::buildTree(ifstream & input){
 
 }
 
+
+TwoThreeTree::node* insertHelper(const string &x, int line, node *& rt, int &distWord) {
+    node* retval;
+    if (rt == NULL) // Empty tree: create a leaf node for root
+        return new node(x, NULL, NULL, NULL);
+    if (rt->left == NULL) // At leaf node: insert here
+        return rt.add(new node(x, NULL, NULL, NULL));
+    // Add to internal node
+    if (x.compare(rt->key1) < 0) { // Insert left
+        retval = insertHelper( x, line, rt->left, distWord);
+        if (retval == rt->left) return rt;
+        else return rt.add(retval);
+    }
+    else if((rt->key2 == "") || (x.compare(rt->key2) < 0)) {
+        retval = insertHelper(x, line, rt->middle, distWord);
+        if (retval == rt->middle) return rt;
+        else return rt.add(retval);
+    }
+    else { // Insert right
+        retval = insertHelper(x, line, rt->right, distWord);
+        if (retval == rt->right) return rt;
+        else return rt.add(retval);
+    }
+}
+
+// Add a new key/value pair to the node. There might be a subtree
+// associated with the record being added. This information comes
+// in the form of a 2-3 tree node with one key and a (possibly null)
+// subtree through the center pointer field.
+TwoThreeTree::node* add( const string &x, int line, node *& rt, int &distWord ) {
+    node* right;
+    node* center;
+    node* left;
+    if (rt->key2 == "") { // Only one key, add here
+        if (rt->key1.compareTo(rt->key1) < 0) {
+            rt->key2 = rt->key1;
+            center = rt->left; right = rt->middle;
+        }
+        else {
+            rt->key2 = rt->key1; right = center;
+            rt->key1 = rt->key1;
+            center = rt->middle;
+        }
+        return rt;
+    }
+    else if (key1.compareTo(rt->key1) >= 0) { // Add left
+        TTNode<Key,E> N1 = new TTNode<Key,E>(lkey, lval, null, null, it, this, null);
+        it.setLeftChild(left);
+        left = center; center = right; right = null;
+        lkey = rkey; lval = rval; rkey = null; rval = null;
+        return N1;
+    }
+    else if (rkey.compareTo(it.lkey()) >= 0) { // Add center
+        it.setCenterChild(new TTNode<Key,E>(rkey, rval, null, null, it.cchild(), right, null));
+        it.setLeftChild(this);
+        rkey = null; rval = null; right = null;
+        return it;
+    }
+    else { // Add right
+        TTNode<Key,E> N1 = new TTNode<Key,E>(rkey, rval, null, null, this, it, null);
+        it.setLeftChild(right);
+        right = null; rkey = null; rval = null;
+        return N1;
+    }
+}
+
+
+
 //x is the word to insert, line is the line in the text file
 //the word was found at, node is the node of the tree being
 //examined, and distWord is incremented if a new word is created
 //and used by buildTree
-void TwoThreeTree::insertHelper(const string &x, int line, node *& t, int &distWord){
+/*void TwoThreeTree::insertHelper(const string &x, int line, node *& t, int &distWord){
     // If we are making a new root node (tree is currently empty)
     if(t == NULL)
     {
@@ -287,10 +355,10 @@ void TwoThreeTree::insertHelper(const string &x, int line, node *& t, int &distW
                 insertHelper(x, line, t->left, distWord);
             }
 
-        }*/
+        }
     }
 }
-
+*/
 void TwoThreeTree::promote(const string &x, int line, node *& t, int &distWord)
 {
     // Recursive base case: If node has only one key, set key2
