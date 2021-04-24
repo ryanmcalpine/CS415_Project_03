@@ -293,7 +293,7 @@ void TwoThreeTree::insertHelper(const string &x, int line, node *& t, int &distW
 
 void TwoThreeTree::promote(const string &x, int line, node *& t, int &distWord)
 {
-    // If node has only one key, set key2
+    // Recursive base case: If node has only one key, set key2
     if( t->key2 == "" )
     {
         // If word is less than key1, put key1 in key2 instead, then put word in key1
@@ -314,7 +314,7 @@ void TwoThreeTree::promote(const string &x, int line, node *& t, int &distWord)
         }
     }
     // if node already has key1 and key2 filled
-    else if (t->key2 != "")
+    else if( t->key2 != "" )
     {
         // Save the parent of this node
         node* parent = findParent(t);
@@ -370,12 +370,86 @@ void TwoThreeTree::promote(const string &x, int line, node *& t, int &distWord)
             }
         }
 
+        // If this node has no parent, create one
+        if( parent == NULL )
+        {
+            parent = new node(b, t, NULL, NULL);
+            t->key1 = a;
+            t->key2 = "";
+            insertHelper(c, line, parent->middle, distWord);
+        }
+
+        // If the parent of this node has only one key, give it 'b' and split node
+        if( parent-> key2 == "" )
+        {
+            // Give parent 'b':
+            // If b is less than key1, put key1 in key2 instead, then put b in key1
+            if( b.compare(parent->key1) < 0 )
+            {
+                parent->key2 = parent->key1;
+                parent->key1 = b;
+            }
+            // If b is greater than key1, set key2
+            if( b.compare(parent->key1) > 0 )
+            {
+                parent->key2 = b;
+            }
+
+            // Split node:
+            // If we are working with left child
+            if( t == parent->left )
+            {
+                t->key1 = a;
+                t->key2 = "";
+                insertHelper( c, line, parent->middle, distWord );
+            }
+            // If we are working with middle child
+            if( t == parent->middle )
+            {
+                t->key1 = a;
+                t->key2 = "";
+                insertHelper( c, line, parent->right, distWord );
+            }
+            // Note: a node with only key1 will never have a right child,
+            // so a third "if" here to check parent->right is not necessary
+        }
+        // If the parent of this node has two keys
+        else
+        {
+
+        }
+
+
+
+
         // Promotion process depends on which child (l/m/r) our node is
         // If we are at the left child:
         if( t == parent->left )
         {
-
+            // Middle value gets promoted // maybe move to end
+            promote( b, line, parent, distWord );
+            // Least value becomes left child
+            // Greatest value becomes middle child
         }
+        // If we are at the middle child:
+        if ( t == parent-> middle )
+        {
+            // Middle value gets promoted
+            // Least value becomes right child of new left child
+            // Greatest value becomes left child of new right child
+        }
+        // If we are at the right child:
+        if( t == parent->right )
+        {
+            // Middle value gets promoted
+            // Least value becomes middle child
+            // Greatest value becomes right child
+        }
+
+
+
+
+
 
         //if the word is the middle value
         if( x.compare(t->key1) > 0 && x.compare(t->key2) < 0)
