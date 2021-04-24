@@ -119,7 +119,7 @@ void TwoThreeTree::insertHelper(const string &x, int line, node *& t, int &distW
             // If leaf has two keys, promote!
             else
             {
-                promote( t, x );
+                promote( x, line, t, distWord );
             }
         }
         // If not, keep going:
@@ -416,12 +416,37 @@ void TwoThreeTree::promote(const string &x, int line, node *& t, int &distWord)
         // If the parent of this node has two keys
         else
         {
+            node* grandparent = findParent(parent);
+            while( grandparent->key2 != "" )
+            {
+                // If we are at the left child:
+                if( t == parent->left )
+                {
 
+                }
+                // If we are at the middle child:
+                if( t == parent->middle )
+                {
+
+                }
+                // If we are at the right child:
+                if( t == parent->right )
+                {
+                    node *cnode = new node(c, NULL, NULL, NULL);
+                    node *bnode = new node(b, t, cnode, NULL);
+                    t->key1 = a;
+                    t->key2 = "";
+                    parent->right = NULL;
+                    // promote parent's key2 to parent's parent
+
+                }
+            }
         }
 
 
 
 
+        /*
         // Promotion process depends on which child (l/m/r) our node is
         // If we are at the left child:
         if( t == parent->left )
@@ -502,6 +527,7 @@ void TwoThreeTree::promote(const string &x, int line, node *& t, int &distWord)
             insertHelper(t->key1, line, t->left, distWord);
             insertHelper(t->key2, line, t->middle, distWord);
         }
+         */
     }
 }
 
